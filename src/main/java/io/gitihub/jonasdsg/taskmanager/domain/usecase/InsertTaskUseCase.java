@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class InsertTaskUseCase {
+public class InsertTaskUseCase {
     private final TaskRepository taskRepository;
 
     public SavedTaskStatus save(final Task task) {
