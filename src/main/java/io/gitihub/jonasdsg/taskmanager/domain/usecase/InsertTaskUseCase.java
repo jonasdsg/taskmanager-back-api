@@ -3,19 +3,18 @@ package io.gitihub.jonasdsg.taskmanager.domain.usecase;
 import io.gitihub.jonasdsg.taskmanager.domain.model.Task;
 import io.gitihub.jonasdsg.taskmanager.domain.repository.TaskRepository;
 import io.gitihub.jonasdsg.taskmanager.domain.valueobjects.SavedTaskStatus;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor
 public class InsertTaskUseCase {
     private final TaskRepository taskRepository;
 
     public SavedTaskStatus save(final Task task) {
         return Optional.of(taskRepository.find(task.id())).stream()
                 .findFirst()
-                .map(saved -> new SavedTaskStatus(saved.id()))
+                .map(saved -> new SavedTaskStatus(saved.id(), "not changed"))
                 .orElse(taskRepository.save(task));
     }
 }

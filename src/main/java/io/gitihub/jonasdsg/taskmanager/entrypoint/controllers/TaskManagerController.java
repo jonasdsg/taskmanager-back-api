@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-
 @RestController
 @RequestMapping(EntryPoint.TASK_MANAGER_CONTROLLER)
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
