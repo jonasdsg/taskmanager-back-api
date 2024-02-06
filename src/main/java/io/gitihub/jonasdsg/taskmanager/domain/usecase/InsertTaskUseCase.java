@@ -12,9 +12,12 @@ public class InsertTaskUseCase {
     private final TaskRepository taskRepository;
 
     public SavedTaskStatus save(final Task task) {
-        return Optional.of(taskRepository.find(task.id())).stream()
-                .findFirst()
-                .map(saved -> new SavedTaskStatus(saved.id(), "not changed"))
-                .orElse(taskRepository.save(task));
+        return Optional.ofNullable(taskRepository.find(task.id()))
+                .map(founded -> this.mapper(founded, "not changed"))
+                .orElseGet(() -> this.mapper(this.taskRepository.save(task), "saved successfully"));
+    }
+
+    private SavedTaskStatus mapper(final Task task, final String status) {
+        return new SavedTaskStatus(task.id(), status);
     }
 }
