@@ -6,4 +6,6 @@ public interface TaskRepository {
     Task save(final Task task);
 
     Task find(String id);
+
+    Task update(final Task task);
 }
