@@ -1,12 +1,14 @@
 package io.gitihub.jonasdsg.taskmanager.domain.usecase;
 
 import io.gitihub.jonasdsg.taskmanager.domain.exceptions.NotFoundException;
+import io.gitihub.jonasdsg.taskmanager.domain.model.Priority;
 import io.gitihub.jonasdsg.taskmanager.domain.model.Task;
 import io.gitihub.jonasdsg.taskmanager.domain.repository.TaskRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.mockito.Mockito.mock;
@@ -21,8 +23,10 @@ class UpdateTaskUseCaseTest {
     void testUpdateAndMustReturnTheTaskUpdated() {
         //Given
         final var uuid = UUID.randomUUID().toString();
-        final var foundedTask = new Task(uuid, "teste", "descrição", null, null, null, null);
-        final var updateTask = new Task(uuid, "founded task", "founded task description", null, null, null, null);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime dueDate = now.plusHours(24);
+        final var foundedTask = new Task(uuid, "teste", "descrição", Priority.LOW, dueDate, now, null);
+        final var updateTask = new Task(uuid, "founded task", "founded task description", Priority.LOW, dueDate, now, null);
         //When
         when(taskRepository.update(updateTask)).thenReturn(updateTask);
         when(taskRepository.find(uuid)).thenReturn(foundedTask);
@@ -35,7 +39,7 @@ class UpdateTaskUseCaseTest {
     void testUpdateAndMustThrowAndExceptionWithNotFoundTaskMessage() {
         //Given
         final var uuid = UUID.randomUUID().toString();
-        final var updateTask = new Task(uuid, "founded task", "founded task description", null, null, null, null);
+        final var updateTask = new Task(uuid, "founded task", "founded task description", Priority.LOW, LocalDateTime.now().plusHours(24), LocalDateTime.now(), null);
         //When
         when(taskRepository.update(updateTask)).thenReturn(updateTask);
         when(taskRepository.find(uuid)).thenReturn(null);

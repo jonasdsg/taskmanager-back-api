@@ -18,14 +18,6 @@ public class UpdateTaskUseCase {
     }
 
     private Task updateFoundedTask(Task foundedTask, Task task) {
-        return taskRepository.update(new Task(
-                foundedTask.id(),
-                task.title(),
-                task.description(),
-                task.priority(),
-                task.dueDate(),
-                foundedTask.creationDate(),
-                task.category()
-        ));
+        return taskRepository.update(foundedTask.update(task));
     }
 }
