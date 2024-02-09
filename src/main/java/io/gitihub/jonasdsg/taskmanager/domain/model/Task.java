@@ -14,16 +14,16 @@ public record Task(
 ) {
     public Task {
         if (Objects.isNull(id) || id.trim().isBlank()) {
-            throw new IllegalArgumentException("The task id cannot be null");
+            throw new IllegalArgumentException("The task id cannot be null!");
         }
         if (Objects.isNull(priority)) {
             throw new IllegalArgumentException("The task must have a priority!");
         }
         if (Objects.isNull(dueDate)) {
-            throw new IllegalArgumentException("The task must have a due date");
+            throw new IllegalArgumentException("The task must have a due date!");
         }
         if(dueDate.isBefore(creationDate)){
-            throw new IllegalArgumentException("The due date cannot be before the creation date");
+            throw new IllegalArgumentException("The due date cannot be before the creation date!");
         }
     }
 
